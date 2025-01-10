@@ -11,7 +11,7 @@ export const login = async (req, res, next) => {
 
   if (!user) return next(new ErrorHandler("Inavlid Email or Password", 400));
 
-  const isMatch = bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user.password);
   if(!isMatch) return next(new ErrorHandler("Inavlid Email or Password", 400))
 
   sendcookie(user, res, `welcome back, ${user.name}`, 200);
